@@ -1,0 +1,10 @@
+[Unit]
+Description=EyesOfNetwork initialization
+After=systemd-logind.service
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/srv/eyesofnetworkconf/eonconf/eonconf.sh cacti eonweb lilac mk-livestatus nagios nagvis notifier pnp4nagios thruk > /dev/null 2>&1
