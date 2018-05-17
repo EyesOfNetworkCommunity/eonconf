@@ -1,7 +1,7 @@
 Summary: eonconf configures the eyesofnetwork tools
 Name: eonconf
 Version: 5.2
-Release: 0.eon
+Release: 1.eon
 Source: %{name}-%{version}.tar.gz
 BuildRoot: /tmp/%{name}-%{version}
 Group: Applications/System
@@ -55,6 +55,9 @@ rm -rf %{buildroot}
 /sbin/ifup-local
 
 %changelog
+* Thu May 17 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-1.eon
+- fix notifier and cacti
+
 * Fri Nov 24 2017 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-0.eon
 - packaged for EyesOfNetwork appliance 5.2
 
