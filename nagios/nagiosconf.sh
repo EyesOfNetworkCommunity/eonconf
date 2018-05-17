@@ -11,14 +11,14 @@ linkdir="${eondir}/nagios"
 # create eon directories
 mkdir -p ${linkdir}/{bin,var}
 
-ln -sf /etc/nagios ${linkdir}/etc
-ln -sf /usr/lib64/nagios/plugins/ ${linkdir}/plugins
+ln -nsf /etc/nagios ${linkdir}/etc
+ln -nsf /usr/lib64/nagios/plugins/ ${linkdir}/plugins
 ln -sf /usr/bin/nagiostats ${linkdir}/bin/nagiostats
 ln -sf /usr/sbin/nagios ${linkdir}/bin/nagios
-ln -sf /usr/share/nagios/html/ /srv/eyesofnetwork/nagios/share
-ln -sf /var/log/nagios ${linkdir}/var/log
-ln -sf /var/spool/nagios/ /srv/eyesofnetwork/nagios/var/log/spool
-ln -sf /var/spool/nagios/cmd/ ${linkdir}/var/log/rw
+ln -nsf /usr/share/nagios/html/ /srv/eyesofnetwork/nagios/share
+ln -nsf /var/log/nagios ${linkdir}/var/log
+ln -nsf /var/spool/nagios/ /srv/eyesofnetwork/nagios/var/log/spool
+ln -nsf /var/spool/nagios/cmd/ ${linkdir}/var/log/rw
 
 # create nagios conf
 mv /etc/httpd/conf.d/nagios.conf /etc/httpd/conf.d/nagios.conf.orig

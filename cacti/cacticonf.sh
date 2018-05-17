@@ -10,7 +10,7 @@ cactidb="cacti"
 APPLIANCEGRP="eyesofnetwork"
 
 # cacti datadir
-ln -sf /usr/share/cacti $datadir
+ln -nsf /usr/share/cacti $datadir
 
 # create the cacti database
 mysqladmin -u root --password=root66 create ${cactidb}
