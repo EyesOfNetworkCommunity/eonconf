@@ -2,7 +2,7 @@ Summary: eonconf configures the eyesofnetwork tools
 Name: eonconf
 Version: 5.2
 Release: 1.eon
-Source: %{name}-%{version}.tar.gz
+Source: https://github.com/EyesOfNetworkCommunity/%{name}/archive/master.tar.gz#/%{name}-%{version}.tar.gz
 BuildRoot: /tmp/%{name}-%{version}
 Group: Applications/System
 License: GPL
@@ -22,7 +22,7 @@ Requires(pre,post): systemd
 eonconf.init is executed once at the end of the first boot. It calls all the packages specifics configuration scripts.
 
 %prep
-%setup -q
+%setup -q -n %{name}-master
 
 %install
 mkdir -p %{buildroot}/%{eonconfdir}
