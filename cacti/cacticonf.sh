@@ -20,3 +20,10 @@ mysql -u root --password=root66 ${cactidb} < ${eonconfdir}/cacti-eon.sql
 
 # user / group
 /usr/sbin/usermod -g ${APPLIANCEGRP} -G apache cacti
+
+# create cacti conf
+mv ${datadir}/include/config.php ${datadir}/include/config.php.orig
+cp -arf ${eonconfdir}/config.php ${datadir}/include/
+mv /etc/httpd/conf.d/cacti.conf /etc/httpd/conf.d/cacti.conf.orig
+cp -arf ${eonconfdir}/cacti.conf /etc/httpd/conf.d/
+
