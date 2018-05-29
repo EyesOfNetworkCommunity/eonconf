@@ -7,6 +7,12 @@ eondir="/srv/eyesofnetwork"
 datadir="$eondir/notifier"
 notifierdb="notifier"
 
+# notifier configuration
+cp -arf ${datadir}/etc/notifier.cfg ${datadir}/etc/notifier.cfg.orig
+cp -arf ${datadir}/etc/notifier.rules ${datadir}/etc/notifier.rules.orig
+cat ${eonconfdir}/notifier.cfg > ${datadir}/etc/notifier.cfg
+cat ${eonconfdir}/notifier.rules > ${datadir}/etc/notifier.rules
+
 # create the notifier database
 SERVER=127.0.0.1
 PORT=3306
