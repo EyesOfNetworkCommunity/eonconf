@@ -24,5 +24,6 @@ rsync -Pavz ${eonconfdir}/EyesOfNetwork/ /usr/share/thruk/themes/themes-availabl
 ln -nsf /usr/share/thruk/themes/themes-available/EyesOfNetwork /etc/thruk/themes/themes-available/
 ln -nsf ../themes-available/EyesOfNetwork /etc/thruk/themes/themes-enabled/
 
+mv /etc/httpd/conf.d/thruk_cookie_auth_vhost.conf /etc/httpd/conf.d/thruk_cookie_auth_vhost.conf.orig
 mv /etc/httpd/conf.d/thruk.conf /etc/httpd/conf.d/thruk.conf.orig
 cp -arf ${eonconfdir}/thruk.conf /etc/httpd/conf.d/

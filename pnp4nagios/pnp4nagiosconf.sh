@@ -14,6 +14,8 @@ ln -nsf /var/spool/pnp4nagios ${linkdir}/var/spool
 ln -nsf /var/log/pnp4nagios ${linkdir}/var/log
 
 # create pnp4nagios conf
+cp -arf ${linkdir}/etc/config.php ${linkdir}/etc/config.php.orig
+cat ${eonconfdir}/config.php > ${linkdir}/etc/config.php
 mv /etc/httpd/conf.d/pnp4nagios.conf /etc/httpd/conf.d/pnp4nagios.conf.orig
 cp -arf ${eonconfdir}/pnp4nagios.conf /etc/httpd/conf.d/
 
