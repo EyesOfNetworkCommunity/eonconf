@@ -19,6 +19,7 @@ ln -nsf /usr/share/nagios/html/ /srv/eyesofnetwork/nagios/share
 ln -nsf /var/log/nagios ${linkdir}/var/log
 ln -nsf /var/spool/nagios/ /srv/eyesofnetwork/nagios/var/log/spool
 ln -nsf /var/spool/nagios/cmd/ ${linkdir}/var/log/rw
+ln -nsf /usr/lib64/nagios/cgi-bin ${linkdir}/sbin
 
 # create nagios conf
 mv /etc/httpd/conf.d/nagios.conf /etc/httpd/conf.d/nagios.conf.orig
