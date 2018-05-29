@@ -33,6 +33,7 @@ rsync -Pavz ${eonconfdir}/etc/ --delete ${linkdir}/etc/
 chown -R nagios:${APPLIANCEGRP} ${linkdir}*
 chown -R nagios:${APPLIANCEGRP} /etc/nagios
 chown -R nagios:${APPLIANCEGRP} /var/log/nagios
+chown -R nagios:${APPLIANCEGRP} /var/spool/nagios
 chmod -R 775 /etc/nagios
 
 # services
