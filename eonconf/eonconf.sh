@@ -2,7 +2,7 @@
 #
 ########################################################################################################################
 # call eonconf.sh with a specified list a tools to configure : 
-# - eonconf.sh cacti eonweb lilac nagios nagvis notifier glpi ocsinventory-reports
+# - eonconf.sh cacti eonweb lilac mk-livestatus nagios nagvis notifier pnp4nagios thruk glpi ocsinventory-reports
 #
 # each of the potential tools should respect the name following convention :
 # - /srv/eyesofnetworkconf/${tool_name}/${tool_name}conf.sh
@@ -60,7 +60,8 @@ usermod -g apache -G apache,eyesofnetwork apache
 # components configuration, loop on command line arguments
 #-----------------------------------------------------------------------------------------------------------------------
 for i in `echo $*`; do
-	if [ -f /srv/eyesofnetworkconf/${i}/${i}conf.sh ] ; then
+	countrpm=`rpm -qa |grep ${i} |wc -l`
+	if [ -f /srv/eyesofnetworkconf/${i}/${i}conf.sh ] && [ $countrpm -gt 0 ] ; then
 		/bin/sh /srv/eyesofnetworkconf/${i}/${i}conf.sh;
 	fi
 done

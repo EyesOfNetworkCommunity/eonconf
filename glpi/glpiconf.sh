@@ -4,9 +4,10 @@
 eonconfpath=$(readlink -f "$0")
 eonconfdir=$(dirname "$eonconfpath")
 
-# notifier configuration
-cp -arf /etc/glpi/config_db.php /etc/config_db.php.orig
-cat ${eonconfdir}/config_db.php > /etc/config_db.php
+# glpi configuration
+cp -arf /etc/httpd/conf.d/glpi.conf /etc/httpd/conf.d/glpi.conf.orig
+cat ${eonconfdir}/config_db.php > /etc/glpi/config_db.php
+cat ${eonconfdir}/glpi.conf > /etc/httpd/conf.d/glpi.conf
 
 # create the notifier database
 SERVER=127.0.0.1
