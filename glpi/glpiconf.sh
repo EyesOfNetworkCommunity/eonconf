@@ -9,7 +9,7 @@ cp -arf /etc/httpd/conf.d/glpi.conf /etc/httpd/conf.d/glpi.conf.orig
 cat ${eonconfdir}/config_db.php > /etc/glpi/config_db.php
 cat ${eonconfdir}/glpi.conf > /etc/httpd/conf.d/glpi.conf
 
-# create the notifier database
+# create the glpi database
 SERVER=127.0.0.1
 PORT=3306
 DATABASE="glpi"
