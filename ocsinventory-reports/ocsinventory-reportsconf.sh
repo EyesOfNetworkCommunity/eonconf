@@ -4,6 +4,10 @@
 eonconfpath=$(readlink -f "$0")
 eonconfdir=$(dirname "$eonconfpath")
 
+# configuration
+cp -arf ${eonconfdir}/dbconfig.inc.php /etc/ocsinventory/ocsinventory-reports/
+chown apache:apache /etc/ocsinventory/ocsinventory-reports/dbconfig.inc.php
+
 # create the ocsweb database
 SERVER=127.0.0.1
 PORT=3306
