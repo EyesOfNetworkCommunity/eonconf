@@ -32,6 +32,7 @@ mkdir -p %{buildroot}/sbin/
 
 install -d -m 755 %{buildroot}/%{eonconfdir}
 cp -afpvr * %{buildroot}/%{eonconfdir}
+rm -rf %{buildroot}/%{eonconfdir}/%{name}.spec
 install -m 644 %{name}/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
 install -m 644 %{name}/eon.conf %{buildroot}/etc/httpd/conf.d/
 ln -sf %{eonconfdir}/%{name}/issue.sh %{buildroot}/sbin/ifup-local
