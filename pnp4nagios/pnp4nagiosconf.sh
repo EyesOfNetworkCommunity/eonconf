@@ -18,4 +18,5 @@ cp -arf ${linkdir}/etc/config.php ${linkdir}/etc/config.php.orig
 cat ${eonconfdir}/config.php > ${linkdir}/etc/config.php
 mv /etc/httpd/conf.d/pnp4nagios.conf /etc/httpd/conf.d/pnp4nagios.conf.orig
 cp -arf ${eonconfdir}/pnp4nagios.conf /etc/httpd/conf.d/
-
+cp -arf ${linkdir}/html/application/models/rrdtool.php ${linkdir}/html/application/models/rrdtool.php.orig
+cat ${eonconfdir}/rrdtool.php > ${linkdir}/html/application/models/rrdtool.php
