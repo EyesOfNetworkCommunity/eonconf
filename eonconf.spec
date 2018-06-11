@@ -50,8 +50,7 @@ case "$1" in
     # Update EON 5.2
     systemctl daemon-reload &>/dev/null
     systemctl disable %{name}.service &>/dev/null
-    mkdir -p /var/archives &>/dev/null
-    mv /var/backup-manager/* /var/archives/ &>/dev/null
+    mv /var/backup-manager /var/archives &>/dev/null
     %{eonconfdir}/backup-manager/backup-managerconf.sh &>/dev/null
   ;;
 esac
