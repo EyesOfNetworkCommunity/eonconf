@@ -7,4 +7,4 @@ WantedBy=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/srv/eyesofnetworkconf/eonconf/eonconf.sh cacti eonweb lilac mk-livestatus nagios nagvis notifier pnp4nagios thruk glpi ocsinventory-reports > /dev/null 2>&1
+ExecStart=/srv/eyesofnetworkconf/eonconf/eonconf.sh cacti eonweb lilac mk-livestatus nagios nagvis notifier pnp4nagios thruk glpi ocsinventory-reports backup-manager > /dev/null 2>&1

@@ -2,7 +2,7 @@
 #
 ########################################################################################################################
 # call eonconf.sh with a specified list a tools to configure : 
-# - eonconf.sh cacti eonweb lilac mk-livestatus nagios nagvis notifier pnp4nagios thruk glpi ocsinventory-reports
+# - eonconf.sh cacti eonweb lilac mk-livestatus nagios nagvis notifier pnp4nagios thruk glpi ocsinventory-reports backup-manager
 #
 # each of the potential tools should respect the name following convention :
 # - /srv/eyesofnetworkconf/${tool_name}/${tool_name}conf.sh

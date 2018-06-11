@@ -1,7 +1,7 @@
 Summary: eonconf configures the eyesofnetwork tools
 Name: eonconf
 Version: 5.2
-Release: 1.eon
+Release: 2.eon
 Source: https://github.com/EyesOfNetworkCommunity/%{name}/archive/master.tar.gz#/%{name}-%{version}.tar.gz
 BuildRoot: /tmp/%{name}-%{version}
 Group: Applications/System
@@ -39,9 +39,22 @@ install -m 644 %{name}/eon.conf %{buildroot}/etc/httpd/conf.d/
 ln -sf %{eonconfdir}/%{name}/issue.sh %{buildroot}/sbin/ifup-local
 
 %post
-/usr/sbin/groupadd eyesofnetwork &>/dev/null
-systemctl enable %{name}.service &>/dev/null
-/sbin/ifup-local &>/dev/null
+case "$1" in
+  1)
+    # Initial install
+    /usr/sbin/groupadd eyesofnetwork &>/dev/null
+    systemctl enable %{name}.service &>/dev/null
+    /sbin/ifup-local &>/dev/null
+  ;;
+  2)
+    # Update EON 5.2
+    systemctl daemon-reload &>/dev/null
+    systemctl disable %{name}.service &>/dev/null
+    mkdir -p /var/archives &>/dev/null
+    mv /var/backup-manager/* /var/archives/ &>/dev/null
+    %{eonconfdir}/backup-manager/backup-managerconf.sh &>/dev/null
+  ;;
+esac
 
 %preun
 systemctl disable %{name}.service &>/dev/null
@@ -57,6 +70,9 @@ rm -rf %{buildroot}
 /sbin/ifup-local
 
 %changelog
+* Mon Jun 11 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-2.eon
+- fix backup manager config
+
 * Thu May 17 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-1.eon
 - fix notifier and cacti
 
