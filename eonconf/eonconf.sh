@@ -65,14 +65,9 @@ for i in `echo $*`; do
 		/bin/sh /srv/eyesofnetworkconf/${i}/${i}conf.sh;
 	fi
 done
-
-# --- backup configuration
-for i in `find /var/lib/mysql/* -type d |awk -F "/" '{print $5}' |grep -v test |grep -v performance_schema` ; do BDDS="$i $BDDS" ; done
-sed -i "s/^export BM_MYSQL_DATABASES*.*/export BM_MYSQL_DATABASES=\"$BDDS\"/g" /etc/backup-manager.conf
-
 /srv/eyesofnetworkconf/eonconf/issue.sh		> /dev/null 2>&1
 
-# -- create repos
+# --- create repos
 mkdir -p /srv/eyesofnetworkrepo/base		> /dev/null 2>&1
 createrepo /srv/eyesofnetworkrepo/base		> /dev/null 2>&1
 mkdir -p /srv/eyesofnetworkrepo/updates		> /dev/null 2>&1
