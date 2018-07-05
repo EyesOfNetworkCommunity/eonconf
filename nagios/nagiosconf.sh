@@ -26,6 +26,9 @@ mv /etc/httpd/conf.d/nagios.conf /etc/httpd/conf.d/nagios.conf.orig
 cp -arf ${eonconfdir}/nagios.conf /etc/httpd/conf.d/
 rsync -Pavz ${eonconfdir}/etc/ --delete ${linkdir}/etc/
 
+# icons
+tar zxvf ${eonconfdir}/logos.tgz -C ${linkdir}/share/images/logos/ 
+
 # user
 /usr/sbin/usermod -g ${APPLIANCEGRP} -G apache nagios &>/dev/null
 

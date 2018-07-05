@@ -1,7 +1,7 @@
 Summary: eonconf configures the eyesofnetwork tools
 Name: eonconf
 Version: 5.2
-Release: 2.eon
+Release: 3.eon
 Source: https://github.com/EyesOfNetworkCommunity/%{name}/archive/master.tar.gz#/%{name}-%{version}.tar.gz
 BuildRoot: /tmp/%{name}-%{version}
 Group: Applications/System
@@ -16,7 +16,8 @@ Requires: epel-release, labs-consol-stable, ocsinventory-release
 BuildRequires: systemd
 Requires(pre,post): systemd
 
-%define eonconfdir   /srv/eyesofnetworkconf/
+%define eondir		/srv/eyesofnetwork/
+%define eonconfdir	/srv/eyesofnetworkconf/
 
 %description
 eonconf.init is executed once at the end of the first boot. It calls all the packages specifics configuration scripts.
@@ -51,6 +52,7 @@ case "$1" in
     systemctl daemon-reload &>/dev/null
     systemctl disable %{name}.service &>/dev/null
     %{eonconfdir}/backup-manager/backup-managerconf.sh &>/dev/null
+    tar zxvf %{eonconfdir}/nagios/logos.tgz -C %{eondir}/share/images/logos/ &>/dev/null
   ;;
 esac
 
@@ -68,6 +70,9 @@ rm -rf %{buildroot}
 /sbin/ifup-local
 
 %changelog
+* Thu Jul 05 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-3.eon
+- add nagios logos
+
 * Mon Jun 11 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-2.eon
 - fix backup manager config
 
