@@ -52,7 +52,7 @@ case "$1" in
     systemctl daemon-reload &>/dev/null
     systemctl disable %{name}.service &>/dev/null
     %{eonconfdir}/backup-manager/backup-managerconf.sh &>/dev/null
-    tar zxvf %{eonconfdir}/nagios/logos.tgz -C %{eondir}/share/images/logos/ &>/dev/null
+    tar zxvf %{eonconfdir}/nagios/logos.tgz -C %{eondir}/nagios/share/images/logos/ &>/dev/null
   ;;
 esac
 
