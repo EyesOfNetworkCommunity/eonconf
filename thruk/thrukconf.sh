@@ -13,6 +13,11 @@ ln -nsf /var/log/thruk/ ${linkdir}/log
 ln -nsf /var/lib/thruk ${linkdir}/var
 ln -nsf /var/cache/thruk/ ${linkdir}/tmp
 
+# thruk bp
+cp -arf ${eonconfdir}/thruk_templates.cfg ${eondir}/nagios/etc/objects/
+chown nagios:eyesofnetwork ${eondir}/nagios/etc/objects/thruk_templates.cfg
+chmod 664 ${eondir}/nagios/etc/objects/thruk_templates.cfg
+
 # create thruk conf
 mv /etc/thruk/thruk_local.conf /etc/thruk/thruk_local.conf.orig
 cp -arf ${eonconfdir}/thruk_local.conf /etc/thruk/
