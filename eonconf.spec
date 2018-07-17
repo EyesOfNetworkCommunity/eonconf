@@ -1,7 +1,7 @@
 Summary: eonconf configures the eyesofnetwork tools
 Name: eonconf
 Version: 5.2
-Release: 3.eon
+Release: 4.eon
 Source: https://github.com/EyesOfNetworkCommunity/%{name}/archive/master.tar.gz#/%{name}-%{version}.tar.gz
 BuildRoot: /tmp/%{name}-%{version}
 Group: Applications/System
@@ -53,6 +53,9 @@ case "$1" in
     systemctl disable %{name}.service &>/dev/null
     %{eonconfdir}/backup-manager/backup-managerconf.sh &>/dev/null
     tar zxvf %{eonconfdir}/nagios/logos.tgz -C %{eondir}/nagios/share/images/logos/ &>/dev/null
+    cp -arf %{eonconfdir}/thruk/thruk_templates.cfg %{eondir}/nagios/etc/objects/ &>/dev/null
+    chown nagios:eyesofnetwork %{eondir}/nagios/etc/objects/thruk_templates.cfg &>/dev/null
+    chmod 664 %{eondir}/nagios/etc/objects/thruk_templates.cfg &>/dev/null
   ;;
 esac
 
@@ -70,6 +73,9 @@ rm -rf %{buildroot}
 /sbin/ifup-local
 
 %changelog
+* Tue Jul 17 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-4.eon
+- add thruk_templates.cfg file
+
 * Thu Jul 05 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-3.eon
 - add nagios logos
 
