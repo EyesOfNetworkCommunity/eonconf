@@ -75,6 +75,7 @@ rm -rf %{buildroot}
 %changelog
 * Tue Jul 17 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-4.eon
 - add thruk_templates.cfg file
+- fix backup nagios archives 
 
 * Thu Jul 05 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-3.eon
 - add nagios logos
