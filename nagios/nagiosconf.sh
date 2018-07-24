@@ -40,5 +40,7 @@ chown -R nagios:${APPLIANCEGRP} /var/spool/nagios
 chmod -R 775 /etc/nagios
 
 # services
+sed -i 's/^Group=nagios/Group=eyesofnetwork/g' /usr/lib/systemd/system/nagios.service &>/dev/null
+systemctl daemon-reload &>/dev/null
 systemctl enable nagios.service &>/dev/null
-systemctl start nagios.service &>/dev/null
+systemctl restart nagios.service &>/dev/null

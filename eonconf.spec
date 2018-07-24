@@ -56,6 +56,9 @@ case "$1" in
     cp -arf %{eonconfdir}/thruk/thruk_templates.cfg %{eondir}/nagios/etc/objects/ &>/dev/null
     chown nagios:eyesofnetwork %{eondir}/nagios/etc/objects/thruk_templates.cfg &>/dev/null
     chmod 664 %{eondir}/nagios/etc/objects/thruk_templates.cfg &>/dev/null
+    sed -i 's/^Group=nagios/Group=eyesofnetwork/g' /usr/lib/systemd/system/nagios.service
+    systemctl daemon-reload
+    systemctl restart nagios
   ;;
 esac
 
@@ -73,6 +76,9 @@ rm -rf %{buildroot}
 /sbin/ifup-local
 
 %changelog
+* Tue Jul 24 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-5.eon
+- fix nagios group
+
 * Tue Jul 17 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-4.eon
 - add thruk_templates.cfg file
 - fix backup manager config
