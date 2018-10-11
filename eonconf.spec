@@ -1,7 +1,7 @@
 Summary: eonconf configures the eyesofnetwork tools
 Name: eonconf
 Version: 5.2
-Release: 5.eon
+Release: 6.eon
 Source: https://github.com/EyesOfNetworkCommunity/%{name}/archive/master.tar.gz#/%{name}-%{version}.tar.gz
 BuildRoot: /tmp/%{name}-%{version}
 Group: Applications/System
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 /sbin/ifup-local
 
 %changelog
+* Thu Oct 11 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-6.eon
+- add thruk_templates.cfg file
+
 * Tue Jul 24 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-5.eon
 - fix nagios group
 
