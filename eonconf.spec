@@ -9,7 +9,7 @@ License: GPL
 
 Requires: createrepo
 Requires: chrony
-Requires: eonweb
+Requires: eonweb, grafana, ansible
 Requires: mod_ssl
 Requires: epel-release, labs-consol-stable, ocsinventory-release 
 
@@ -77,6 +77,10 @@ rm -rf %{buildroot}
 /sbin/ifup-local
 
 %changelog
+* Wed Oct 30 2019 Sebastien DAVOULT <d@vou.lt> - 5.3-0.eon
+- add grafana configuration
+- add EON IP address in issue.sh
+
 * Thu Oct 11 2018 Jean-Philippe Levy <jeanphilippe.levy@gmail.com> - 5.2-6.eon
 - add thruk_templates.cfg file
 

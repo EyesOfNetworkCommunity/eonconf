@@ -39,6 +39,9 @@ chown -R nagios:${APPLIANCEGRP} /var/log/nagios
 chown -R nagios:${APPLIANCEGRP} /var/spool/nagios
 chmod -R 775 /etc/nagios
 
+# lilac conf
+su -s /bin/sh -c "php /srv/eyesofnetwork/lilac/exporter/export.php 1" nagios &>/dev/null
+
 # services
 sed -i 's/^Group=nagios/Group=eyesofnetwork/g' /usr/lib/systemd/system/nagios.service &>/dev/null
 systemctl daemon-reload &>/dev/null

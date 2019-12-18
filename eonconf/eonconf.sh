@@ -40,6 +40,7 @@ sed -i 's/.1.3.6.1.2.1.1/.1./g' /etc/snmp/snmpd.conf
 echo "ignoreauthfailure yes
 authCommunity log,execute,net EyesOfNetwork
 traphandle default /srv/eyesofnetwork/snmptt/bin/snmptthandler" > /etc/snmp/snmptrapd.conf
+sed -i 's/net_snmp_perl_enable = 0/net_snmp_perl_enable = 1/g' /etc/snmp/snmptt.ini
 
 # --- check mysql daemon is up and running, set the root password
 if [ ! -n "`systemctl status mariadb | grep pid`" ]; then
@@ -55,6 +56,9 @@ mysql -u root --password=root66 < /srv/eyesofnetwork/ged/etc/bkd/ged-init.sql
 
 # --- apache user must belong to eyesofnetwork group too
 usermod -g apache -G apache,eyesofnetwork apache
+
+# --- Disable OCS repo (issue with PHP 5/7
+sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/ocsinventory.repo
 
 #-----------------------------------------------------------------------------------------------------------------------
 # components configuration, loop on command line arguments
@@ -91,6 +95,9 @@ systemctl enable rsyslog 	> /dev/null 2>&1
 systemctl enable snmpd 		> /dev/null 2>&1
 systemctl enable snmptrapd	> /dev/null 2>&1
 systemctl enable snmptt 	> /dev/null 2>&1
+systemctl enable grafana-server 	> /dev/null 2>&1
+systemctl enable influxdb 	> /dev/null 2>&1
+systemctl enable nagflux 	> /dev/null 2>&1
 
 # --- services status
 systemctl stop firewalld 	> /dev/null 2>&1
@@ -103,6 +110,9 @@ systemctl restart gedd 		> /dev/null 2>&1
 systemctl restart snmpd 	> /dev/null 2>&1
 systemctl restart snmptrapd 	> /dev/null 2>&1
 systemctl restart snmptt 	> /dev/null 2>&1
+systemctl restart influxdb 	> /dev/null 2>&1
+systemctl restart nagflux 	> /dev/null 2>&1
+systemctl restart grafana-server	> /dev/null 2>&1
 systemctl restart httpd 	> /dev/null 2>&1
 
 # --- network
@@ -116,3 +126,4 @@ firewall-cmd --reload				> /dev/null 2>&1
 
 # --- remove the sysv eonconf script from the boot sequence
 systemctl disable eonconf
+
