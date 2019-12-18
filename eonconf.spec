@@ -2,7 +2,7 @@ Summary: eonconf configures the eyesofnetwork tools
 Name: eonconf
 Version: 5.3
 Release: 0.eon
-Source: https://github.com/EyesOfNetworkCommunity/%{name}/archive/%{branch}.tar.gz#/%{name}-%{version}.tar.gz
+Source: https://github.com/EyesOfNetworkCommunity/%{name}/archive/master.tar.gz#/%{name}-%{version}.tar.gz
 BuildRoot: /tmp/%{name}-%{version}
 Group: Applications/System
 License: GPL
@@ -16,7 +16,6 @@ Requires: epel-release, labs-consol-stable, ocsinventory-release
 BuildRequires: systemd
 Requires(pre,post): systemd
 
-%define	branch		5.3-0
 %define eondir		/srv/eyesofnetwork/
 %define eonconfdir	/srv/eyesofnetworkconf/
 
