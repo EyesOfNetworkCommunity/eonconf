@@ -28,7 +28,14 @@ cp -arf ${eonconfdir}/cgi.cfg /etc/thruk/
 rsync -Pavz ${eonconfdir}/EyesOfNetwork/ /usr/share/thruk/themes/themes-available/EyesOfNetwork/
 ln -nsf /usr/share/thruk/themes/themes-available/EyesOfNetwork /etc/thruk/themes/themes-available/
 ln -nsf ../themes-available/EyesOfNetwork /etc/thruk/themes/themes-enabled/
+ln -nsf /srv/eyesofnetwork/eonweb/themes/EONFlatDark/thruk/EONFlatDark/ /etc/thruk/themes/themes-enabled/EONFlatDark
+ln -nsf /srv/eyesofnetwork/eonweb/themes/EONFlatLight/thruk/EONFlatLight/ /etc/thruk/themes/themes-enabled/EONFlatLight
+
 
 mv /etc/httpd/conf.d/thruk_cookie_auth_vhost.conf /etc/httpd/conf.d/thruk_cookie_auth_vhost.conf.orig
+echo '' > /etc/httpd/conf.d/thruk_cookie_auth_vhost.conf
 mv /etc/httpd/conf.d/thruk.conf /etc/httpd/conf.d/thruk.conf.orig
 cp -arf ${eonconfdir}/thruk.conf /etc/httpd/conf.d/
+
+touch /etc/httpd/conf.d/thruk_cookie_auth_vhost.conf
+systemctl restart httpd

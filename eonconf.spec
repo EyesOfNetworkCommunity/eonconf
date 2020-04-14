@@ -1,7 +1,7 @@
 Summary: eonconf configures the eyesofnetwork tools
 Name: eonconf
 Version: 5.3
-Release: 0.eon
+Release: 2.eon
 Source: https://github.com/EyesOfNetworkCommunity/%{name}/archive/master.tar.gz#/%{name}-%{version}.tar.gz
 BuildRoot: /tmp/%{name}-%{version}
 Group: Applications/System
@@ -9,7 +9,7 @@ License: GPL
 
 Requires: createrepo
 Requires: chrony
-Requires: eonweb, grafana, ansible
+Requires: eonweb >= 5.3-5, grafana, ansible
 Requires: mod_ssl
 Requires: epel-release, labs-consol-stable, ocsinventory-release 
 
@@ -30,6 +30,8 @@ mkdir -p %{buildroot}/%{eonconfdir}
 mkdir -p %{buildroot}/%{_unitdir}
 mkdir -p %{buildroot}/etc/httpd/conf.d/
 mkdir -p %{buildroot}/sbin/
+
+mkdir -p %{buildroot}/etc/thruk/themes/themes-enabled/
 
 install -d -m 755 %{buildroot}/%{eonconfdir}
 cp -afpvr * %{buildroot}/%{eonconfdir}
@@ -59,6 +61,18 @@ case "$1" in
     sed -i 's/^Group=nagios/Group=eyesofnetwork/g' /usr/lib/systemd/system/nagios.service
     systemctl daemon-reload
     systemctl restart nagios
+
+    # Update eonconf 5.3-1
+    ln -vsf /srv/eyesofnetwork/eonweb/themes/EONFlatLight/thruk/EONFlatLight /etc/thruk/themes/themes-enabled/EONFlatLight
+    ln -vsf /srv/eyesofnetwork/eonweb/themes/EONFlatDark/thruk/EONFlatDark /etc/thruk/themes/themes-enabled/EONFlatDark
+    ## If update during thruk upgrade
+    mkdir -p /tmp/thruk_update/themes
+    ln -vsf /srv/eyesofnetwork/eonweb/themes/EONFlatLight/thruk/EONFlatLight /tmp/thruk_update/themes/EONFlatLight
+    ln -vsf /srv/eyesofnetwork/eonweb/themes/EONFlatDark/thruk/EONFlatDark /tmp/thruk_update/themes/EONFlatDark
+    ## Fix auth in thruk
+    echo '' > /etc/httpd/conf.d/thruk_cookie_auth_vhost.conf
+    systemctl restart httpd &>/dev/null
+
   ;;
 esac
 
@@ -76,6 +90,13 @@ rm -rf %{buildroot}
 /sbin/ifup-local
 
 %changelog
+* Sun Apr 12 2020 Sebastien DAVOULT <d@vou.lt> - 5.3-2.eon
+- Fix update conflict with Thruk
+
+* Fri Apr 10 2020 Sebastien DAVOULT <d@vou.lt> - 5.3-1.eon
+- add Thruk themes (symlink)
+- Fix Thruk auth vHost
+
 * Wed Oct 30 2019 Sebastien DAVOULT <d@vou.lt> - 5.3-0.eon
 - add grafana configuration
 - add EON IP address in issue.sh
