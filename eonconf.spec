@@ -53,7 +53,6 @@ case "$1" in
     # Update EON 5.3
     systemctl daemon-reload &>/dev/null
     systemctl disable %{name}.service &>/dev/null
-    %{eonconfdir}/backup-manager/backup-managerconf.sh &>/dev/null
     tar zxvf %{eonconfdir}/nagios/logos.tgz -C %{eondir}/nagios/share/images/logos/ &>/dev/null
     cp -arf %{eonconfdir}/thruk/thruk_templates.cfg %{eondir}/nagios/etc/objects/ &>/dev/null
     chown nagios:eyesofnetwork %{eondir}/nagios/etc/objects/thruk_templates.cfg &>/dev/null
