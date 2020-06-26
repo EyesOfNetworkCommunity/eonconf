@@ -1,7 +1,7 @@
 Summary: eonconf configures the eyesofnetwork tools
 Name: eonconf
 Version: 5.3
-Release: 2.eon
+Release: 3.eon
 Source: https://github.com/EyesOfNetworkCommunity/%{name}/archive/master.tar.gz#/%{name}-%{version}.tar.gz
 BuildRoot: /tmp/%{name}-%{version}
 Group: Applications/System
@@ -78,6 +78,18 @@ esac
 %preun
 systemctl disable %{name}.service &>/dev/null
 
+%posttrans
+# If nagios has update
+if [ /srv/eyesofnetwork/nagios/etc/objects/printer.cfg ]; then
+	systemctl stop nagios
+	if [ /var/run/nagios/nagios.pid ]; then
+		rm -f /var/run/nagios/nagios.pid
+	fi
+	find /srv/eyesofnetwork/nagios/etc/objects/ -name "*.cfg" -user root -group root -exec rm -f {} \;
+	chown nagios:eyesofnetwork /srv/eyesofnetwork/nagios/etc/objects/
+	systemctl start nagios
+fi
+
 %clean
 rm -rf /tmp/%{name}-%{version}
 rm -rf %{buildroot}
@@ -89,6 +101,9 @@ rm -rf %{buildroot}
 /sbin/ifup-local
 
 %changelog
+* Fri Jun 26 2020 Sebastien DAVOULT <d@vou.lt> - 5.3-3.eon
+- Fix Nagios 4.4.3 to 4.4.5 auth pb
+
 * Sun Apr 12 2020 Sebastien DAVOULT <d@vou.lt> - 5.3-2.eon
 - Fix update conflict with Thruk
 
