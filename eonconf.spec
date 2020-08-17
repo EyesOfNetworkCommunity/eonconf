@@ -1,7 +1,7 @@
 Summary: eonconf configures the eyesofnetwork tools
 Name: eonconf
 Version: 5.3
-Release: 3.eon
+Release: 4.eon
 Source: https://github.com/EyesOfNetworkCommunity/%{name}/archive/master.tar.gz#/%{name}-%{version}.tar.gz
 BuildRoot: /tmp/%{name}-%{version}
 Group: Applications/System
@@ -62,14 +62,25 @@ case "$1" in
     systemctl restart nagios
 
     # Update eonconf 5.3-1
-    ln -vsf /srv/eyesofnetwork/eonweb/themes/EONFlatLight/thruk/EONFlatLight /etc/thruk/themes/themes-enabled/EONFlatLight
-    ln -vsf /srv/eyesofnetwork/eonweb/themes/EONFlatDark/thruk/EONFlatDark /etc/thruk/themes/themes-enabled/EONFlatDark
+    ln -vsf /srv/eyesofnetwork/eonweb/themes/EONFlatLight/thruk/EONFlatLight /etc/thruk/themes/themes-enabled/EONFlatLight &>/dev/null
+    ln -vsf /srv/eyesofnetwork/eonweb/themes/EONFlatDark/thruk/EONFlatDark /etc/thruk/themes/themes-enabled/EONFlatDark &>/dev/null
     ## If update during thruk upgrade
     mkdir -p /tmp/thruk_update/themes
-    ln -vsf /srv/eyesofnetwork/eonweb/themes/EONFlatLight/thruk/EONFlatLight /tmp/thruk_update/themes/EONFlatLight
-    ln -vsf /srv/eyesofnetwork/eonweb/themes/EONFlatDark/thruk/EONFlatDark /tmp/thruk_update/themes/EONFlatDark
+    ln -vsf /srv/eyesofnetwork/eonweb/themes/EONFlatLight/thruk/EONFlatLight /tmp/thruk_update/themes/EONFlatLight &>/dev/null
+    ln -vsf /srv/eyesofnetwork/eonweb/themes/EONFlatDark/thruk/EONFlatDark /tmp/thruk_update/themes/EONFlatDark &>/dev/null
     ## Fix auth in thruk
     echo '' > /etc/httpd/conf.d/thruk_cookie_auth_vhost.conf
+    #systemctl restart httpd &>/dev/null
+
+    # Update eonconf 5.3-4
+    grep -qxF 'Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure' /etc/httpd/conf.d/eon.conf || echo 'Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure' >> /etc/httpd/conf.d/eon.conf
+    grep -qxF 'Header unset Server' /etc/httpd/conf.d/eon.conf || echo 'Header unset Server' >> /etc/httpd/conf.d/eon.conf
+    grep -qxF 'ServerSignature Off' /etc/httpd/conf.d/eon.conf || echo 'ServerSignature Off' >> /etc/httpd/conf.d/eon.conf
+    grep -qxF 'ServerTokens Prod' /etc/httpd/conf.d/eon.conf || echo 'ServerTokens Prod' >> /etc/httpd/conf.d/eon.conf
+    grep -qxF 'Header unset X-Powered-By' /etc/httpd/conf.d/eon.conf || echo 'Header unset X-Powered-By' >> /etc/httpd/conf.d/eon.conf
+    grep -qxF 'Header set X-XSS-Protection "1; mode=block"' /etc/httpd/conf.d/eon.conf || echo 'Header set X-XSS-Protection "1; mode=block"' >> /etc/httpd/conf.d/eon.conf
+    grep -qxF 'Header set X-Frame-Options: "sameorigin"' /etc/httpd/conf.d/eon.conf || echo 'Header set X-Frame-Options: "sameorigin"' >> /etc/httpd/conf.d/eon.conf
+
     systemctl restart httpd &>/dev/null
 
   ;;
@@ -101,6 +112,9 @@ rm -rf %{buildroot}
 /sbin/ifup-local
 
 %changelog
+* Mon Aug 17 2020 Sebastien DAVOULT <d@vou.lt> - 5.3-4.eon
+- fix security Headers
+ 
 * Fri Jun 26 2020 Sebastien DAVOULT <d@vou.lt> - 5.3-3.eon
 - Fix Nagios 4.4.3 to 4.4.5 auth pb
 
