@@ -1,7 +1,7 @@
 Summary: eonconf configures the eyesofnetwork tools
 Name: eonconf
 Version: 5.3
-Release: 4.eon
+Release: 5.eon
 Source: https://github.com/EyesOfNetworkCommunity/%{name}/archive/master.tar.gz#/%{name}-%{version}.tar.gz
 BuildRoot: /tmp/%{name}-%{version}
 Group: Applications/System
@@ -83,23 +83,18 @@ case "$1" in
 
     systemctl restart httpd &>/dev/null
 
+    # Update eonconf 5.3-5
+    cat /dev/null >/srv/eyesofnetwork/nagios/etc/objects/localhost.cfg
+    cat /dev/null >/srv/eyesofnetwork/nagios/etc/objects/printer.cfg
+    cat /dev/null >/srv/eyesofnetwork/nagios/etc/objects/switch.cfg
+    cat /dev/null >/srv/eyesofnetwork/nagios/etc/objects/templates.cfg
+    cat /dev/null >/srv/eyesofnetwork/nagios/etc/objects/windows.cfg
+
   ;;
 esac
 
 %preun
 systemctl disable %{name}.service &>/dev/null
-
-%posttrans
-# If nagios has update
-if [ /srv/eyesofnetwork/nagios/etc/objects/printer.cfg ]; then
-	systemctl stop nagios
-	if [ /var/run/nagios/nagios.pid ]; then
-		rm -f /var/run/nagios/nagios.pid
-	fi
-	find /srv/eyesofnetwork/nagios/etc/objects/ -name "*.cfg" -user root -group root -exec rm -f {} \;
-	chown nagios:eyesofnetwork /srv/eyesofnetwork/nagios/etc/objects/
-	systemctl start nagios
-fi
 
 %clean
 rm -rf /tmp/%{name}-%{version}
@@ -112,6 +107,9 @@ rm -rf %{buildroot}
 /sbin/ifup-local
 
 %changelog
+* Thu Mar 30 2021 Sebastien DAVOULT <d@vou.lt> - 5.3-5.eon
+- fix nagios default files #22
+
 * Mon Aug 17 2020 Sebastien DAVOULT <d@vou.lt> - 5.3-4.eon
 - fix security Headers
  
