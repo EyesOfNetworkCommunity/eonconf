@@ -89,6 +89,8 @@ case "$1" in
     cat /dev/null >/srv/eyesofnetwork/nagios/etc/objects/switch.cfg
     cat /dev/null >/srv/eyesofnetwork/nagios/etc/objects/templates.cfg
     cat /dev/null >/srv/eyesofnetwork/nagios/etc/objects/windows.cfg
+    ## Adding Nagios in nagios group
+    gpasswd -a nagios nagios
 
   ;;
 esac

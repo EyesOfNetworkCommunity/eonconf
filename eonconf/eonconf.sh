@@ -42,13 +42,6 @@ authCommunity log,execute,net EyesOfNetwork
 traphandle default /srv/eyesofnetwork/snmptt/bin/snmptthandler" > /etc/snmp/snmptrapd.conf
 sed -i 's/net_snmp_perl_enable = 0/net_snmp_perl_enable = 1/g' /etc/snmp/snmptt.ini
 
-# --- disable Nagios default configuration
-cat /dev/null > /srv/eyesofnetwork/nagios/etc/objects/localhost.cfg
-cat /dev/null > /srv/eyesofnetwork/nagios/etc/objects/printer.cfg
-cat /dev/null > /srv/eyesofnetwork/nagios/etc/objects/switch.cfg
-cat /dev/null > /srv/eyesofnetwork/nagios/etc/objects/templates.cfg
-cat /dev/null > /srv/eyesofnetwork/nagios/etc/objects/windows.cfg
-
 # --- check mysql daemon is up and running, set the root password
 if [ ! -n "`systemctl status mariadb | grep pid`" ]; then
         systemctl start mariadb

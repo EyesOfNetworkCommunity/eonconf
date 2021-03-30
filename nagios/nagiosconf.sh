@@ -26,11 +26,19 @@ mv /etc/httpd/conf.d/nagios.conf /etc/httpd/conf.d/nagios.conf.orig
 cp -arf ${eonconfdir}/nagios.conf /etc/httpd/conf.d/
 rsync -Pavz ${eonconfdir}/etc/ --delete ${linkdir}/etc/
 
+# disable Nagios default configuration
+cat /dev/null > /srv/eyesofnetwork/nagios/etc/objects/localhost.cfg
+cat /dev/null > /srv/eyesofnetwork/nagios/etc/objects/printer.cfg
+cat /dev/null > /srv/eyesofnetwork/nagios/etc/objects/switch.cfg
+cat /dev/null > /srv/eyesofnetwork/nagios/etc/objects/templates.cfg
+cat /dev/null > /srv/eyesofnetwork/nagios/etc/objects/windows.cfg
+
 # icons
 tar zxvf ${eonconfdir}/logos.tgz -C ${linkdir}/share/images/logos/ 
 
 # user
 /usr/sbin/usermod -g ${APPLIANCEGRP} -G apache nagios &>/dev/null
+/usr/bin/gpasswd -a nagios nagios &>/dev/null
 
 # rights
 chown -R nagios:${APPLIANCEGRP} ${linkdir}*
