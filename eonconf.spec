@@ -1,7 +1,7 @@
 Summary: eonconf configures the eyesofnetwork tools
 Name: eonconf
-Version: 5.3
-Release: 5.eon
+Version: 6.0
+Release: 6.eon
 Source: https://github.com/EyesOfNetworkCommunity/%{name}/archive/master.tar.gz#/%{name}-%{version}.tar.gz
 BuildRoot: /tmp/%{name}-%{version}
 Group: Applications/System
@@ -9,7 +9,7 @@ License: GPL
 
 Requires: createrepo
 Requires: chrony
-Requires: eonweb >= 5.3-5, grafana, ansible
+Requires: eonweb >= 6.0-0, grafana, ansible
 Requires: mod_ssl
 Requires: epel-release, labs-consol-stable, ocsinventory-release 
 
@@ -109,6 +109,9 @@ rm -rf %{buildroot}
 /sbin/ifup-local
 
 %changelog
+* Thu July 6 2022 Jeremy Hoarau <> - 6.0-0.eon
+- Change Spec and disable repo for EON 6.0
+
 * Thu Mar 30 2021 Sebastien DAVOULT <d@vou.lt> - 5.3-5.eon
 - fix nagios default files #22
 
