@@ -126,4 +126,7 @@ firewall-cmd --reload				> /dev/null 2>&1
 
 # --- remove the sysv eonconf script from the boot sequence
 systemctl disable eonconf
+sed -i -e "s/enabled=1/enabled=0/g" /etc/yum.repos.d/epel.repo
+sed -i -e "s/enabled=1/enabled=0/g" /etc/yum.repos.d/remi*.repo
+sed -i -e "s/enabled=1/enabled=0/g" /etc/yum.repos.d/grafana.repo
 
